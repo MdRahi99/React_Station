@@ -2,20 +2,38 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
 import { GoogleAuthProvider } from "firebase/auth";
 import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const provider = new GoogleAuthProvider();
 
 const SignUp = () => {
-  const { providerLogin } = useContext(AuthContext);
+  const { providerLogin, signUp } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleGoogleSignUp = () => {
     providerLogin(provider)
       .then((result) => {
         const user = result.user;
         console.log(user);
+        navigate('/');
       })
       .catch((error) => console.error(error));
+  };
+
+  const handleUserSignUp = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    signUp(email, password)
+    .then(result => {
+      const user = result.user;
+      console.log(user);
+      form.reset();
+      navigate('/');
+    })
+    .catch(error => console.error(error));
   };
 
   return (
@@ -24,27 +42,28 @@ const SignUp = () => {
       <div className="flex-grow border-t border-slate-600 mt-3 mb-9 w-2/4 mx-auto"></div>
 
       <form
+        onSubmit={handleUserSignUp}
         className="flex flex-col gap-4 max-w-md mx-auto shadow-lg shadow-cyan-600 p-4"
       >
         <div>
           <div className="mb-2 block font-serif">
             <h5>Name</h5>
           </div>
-          <input type="text" placeholder="Enter Your Name" className="input input-bordered input-info w-full max-w-lg" />
+          <input type="text" name="name" placeholder="Enter Your Name" className="input input-bordered input-info w-full max-w-lg" />
         </div>
 
         <div>
           <div className="mb-2 block font-serif">
             <h5>Email</h5>
           </div>
-          <input type="email" placeholder="Enter Your Email" className="input input-bordered input-info w-full max-w-lg" />
+          <input type="email" name="email" placeholder="Enter Your Email" className="input input-bordered input-info w-full max-w-lg" />
         </div>
 
         <div>
           <div className="mb-2 block font-serif">
             <h5>Password</h5>
           </div>
-          <input type="password" placeholder="Enter Your Password" className="input input-bordered input-info w-full max-w-lg" />
+          <input type="password" name="password" placeholder="Enter Your Password" className="input input-bordered input-info w-full max-w-lg" />
         </div>
 
         <button className="p-2 shadow-sm text-xl font-serif hover:bg-cyan-600 hover:text-white shadow-cyan-600 bg-white" type="submit">Sign Up</button>
