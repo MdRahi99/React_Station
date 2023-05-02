@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 const provider = new GoogleAuthProvider();
 
 const SignUp = () => {
-  const { providerLogin, signUp } = useContext(AuthContext);
+  const { providerLogin, signUp, updateUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleGoogleSignUp = () => {
@@ -23,6 +23,8 @@ const SignUp = () => {
   const handleUserSignUp = (event) => {
     event.preventDefault();
     const form = event.target;
+    const name = form.name.value;
+    const photoURL = form.photoURL.value;
     const email = form.email.value;
     const password = form.password.value;
 
@@ -30,6 +32,19 @@ const SignUp = () => {
     .then(result => {
       const user = result.user;
       console.log(user);
+
+      const userProfile = {
+        displayName: name,
+        photoURL: photoURL
+      };
+
+      updateUser(userProfile)
+      .then(result => {
+        const user = result;
+        console.log(user);
+      })
+      .catch(error => console.error(error));
+
       form.reset();
       navigate('/');
     })
@@ -50,6 +65,13 @@ const SignUp = () => {
             <h5>Name</h5>
           </div>
           <input type="text" name="name" placeholder="Enter Your Name" className="input input-bordered input-info w-full max-w-lg" />
+        </div>
+
+        <div>
+          <div className="mb-2 block font-serif">
+            <h5>Photo URL</h5>
+          </div>
+          <input type="text" name="photoURL" placeholder="Enter Your Photos URL" className="input input-bordered input-info w-full max-w-lg" />
         </div>
 
         <div>
