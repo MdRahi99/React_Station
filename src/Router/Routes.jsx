@@ -7,6 +7,7 @@ import SignUp from "../Pages/Register/SignUp/SignUp";
 import LogIn from "../Pages/Register/LogIn/LogIn";
 import PrivateRoute from "./PrivateRoute";
 import Error from "../Pages/Shared/Error/Error";
+import ConceptDetails from "../Pages/CoreConcepts/ConceptDetails";
 
 const router = createBrowserRouter([
     {
@@ -15,11 +16,11 @@ const router = createBrowserRouter([
       children: [
         {
             path: "/",
-            element: <PrivateRoute><Home></Home></PrivateRoute>
+            element: <Home></Home>
         },
         {
             path: "/about",
-            element: <PrivateRoute><About></About></PrivateRoute>
+            element: <About></About>
         },
         {
             path: "/contact",
@@ -33,6 +34,11 @@ const router = createBrowserRouter([
             path: "/login",
             element: <LogIn></LogIn>
         },
+        {
+          path: "/concept-details/:id",
+          loader: async({params})=> await fetch(`http://localhost:5000/core-concepts/${params.id}`),
+          element: <PrivateRoute><ConceptDetails></ConceptDetails></PrivateRoute>
+        }
       ],
     },
     {

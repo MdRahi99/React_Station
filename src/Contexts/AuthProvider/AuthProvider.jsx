@@ -10,16 +10,6 @@ const AuthProvider = ({children}) => {
     const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-            setLoading(false);
-        })
-        return () => {
-            unsubscribe()
-        };
-    },[]);
-
     const providerLogin = (provider) => {
         setLoading(true);
         return signInWithPopup(auth, provider);
@@ -43,6 +33,16 @@ const AuthProvider = ({children}) => {
     const logOut = () => {
         return signOut(auth);
     };
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser);
+            setLoading(false);
+        })
+        return () => {
+            unsubscribe()
+        };
+    },[]);
 
     const authInfo = {user, providerLogin, signUp, signIn, updateUser, logOut, loading};
 

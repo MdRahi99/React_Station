@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
 import { GoogleAuthProvider } from "firebase/auth";
 import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Loader from "../../Shared/Loader/Loader";
 
 const provider = new GoogleAuthProvider();
@@ -10,13 +10,15 @@ const provider = new GoogleAuthProvider();
 const SignUp = () => {
   const { providerLogin, signUp, updateUser, loading } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
 
   const handleGoogleSignUp = () => {
     providerLogin(provider)
       .then((result) => {
         const user = result.user;
         console.log(user);
-        navigate('/');
+        navigate(from, {replace: true});
       })
       .catch((error) => console.error(error));
   };
@@ -47,7 +49,7 @@ const SignUp = () => {
       .catch(error => console.error(error));
 
       form.reset();
-      navigate('/');
+      navigate(from, {replace: true});
     })
     .catch(error => console.error(error));
   };
