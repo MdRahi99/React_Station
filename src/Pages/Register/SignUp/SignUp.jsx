@@ -42,10 +42,7 @@ const SignUp = () => {
       };
 
       updateUser(userProfile)
-      .then(result => {
-        const user = result;
-        console.log(user);
-      })
+      .then(() => console.log('Profile Updated'))
       .catch(error => console.error(error));
 
       form.reset();
