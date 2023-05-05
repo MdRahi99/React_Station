@@ -3,11 +3,12 @@ import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
 import { GoogleAuthProvider } from "firebase/auth";
 import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
 import { Link, useNavigate } from "react-router-dom";
+import Loader from "../../Shared/Loader/Loader";
 
 const provider = new GoogleAuthProvider();
 
 const SignUp = () => {
-  const { providerLogin, signUp, updateUser } = useContext(AuthContext);
+  const { providerLogin, signUp, updateUser, loading } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleGoogleSignUp = () => {
@@ -50,6 +51,10 @@ const SignUp = () => {
     })
     .catch(error => console.error(error));
   };
+
+  if(loading){
+    return <Loader></Loader>
+  }
 
   return (
     <div className="bg-slate-200 my-12 lg:p-10 p-4 mx-4 lg:w-1/2 lg:mx-auto">

@@ -2,13 +2,16 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
 import { GoogleAuthProvider } from "firebase/auth";
 import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Loader from "../../Shared/Loader/Loader";
 
 const provider = new GoogleAuthProvider();
 
 const LogIn = () => {
-  const { providerLogin, signIn } = useContext(AuthContext);
+  const { providerLogin, signIn, loading } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
 
   const handleGoogleSignIn = () => {
     providerLogin(provider)
@@ -30,10 +33,14 @@ const LogIn = () => {
       const user = result.user;
       console.log(user);
       form.reset();
-      navigate('/');
+      navigate(from, {replace: true});
     })
     .catch(error => console.error(error));
   };
+
+  if(loading){
+    return <Loader></Loader>
+  }
 
   return (
     <div className="bg-slate-200 my-12 lg:p-10 p-4 mx-4 lg:w-1/2 lg:mx-auto">

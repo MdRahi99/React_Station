@@ -5,6 +5,8 @@ import About from "../Pages/About/About";
 import Contact from "../Pages/Contact/Contact";
 import SignUp from "../Pages/Register/SignUp/SignUp";
 import LogIn from "../Pages/Register/LogIn/LogIn";
+import PrivateRoute from "./PrivateRoute";
+import Error from "../Pages/Shared/Error/Error";
 
 const router = createBrowserRouter([
     {
@@ -13,11 +15,11 @@ const router = createBrowserRouter([
       children: [
         {
             path: "/",
-            element: <Home></Home>
+            element: <PrivateRoute><Home></Home></PrivateRoute>
         },
         {
             path: "/about",
-            element: <About></About>
+            element: <PrivateRoute><About></About></PrivateRoute>
         },
         {
             path: "/contact",
@@ -33,6 +35,10 @@ const router = createBrowserRouter([
         },
       ],
     },
+    {
+      path: "*",
+      element: <Error></Error>
+    }
   ]);
 
 export default router;

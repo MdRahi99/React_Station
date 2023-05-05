@@ -137,9 +137,10 @@ const Header = () => {
           <div className="flex gap-2 items-center">
             <Link
               to="/dashboard"
-              className="text-md font-serif shadow-inner shadow-cyan-600 hover:bg-cyan-600 hover:text-white py-1 px-3"
+              className="flex gap-2 items-center text-md font-serif shadow-inner shadow-cyan-600 hover:bg-cyan-600 hover:text-white py-1 px-3"
             >
-              {user?.displayName}
+              <img className="h-6 rounded-full w-6" src={user?.photoURL} alt="" />
+              <h4>{user?.displayName}</h4>
             </Link>
             <button
               className="text-md font-serif hover:bg-cyan-900 bg-cyan-600 text-white py-1 px-3"
