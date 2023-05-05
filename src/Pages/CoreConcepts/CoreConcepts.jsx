@@ -5,7 +5,7 @@ const CoreConcepts = () => {
   const [concepts, setConcepts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/core-concepts")
+    fetch("https://react-station-server.vercel.app/core-concepts")
       .then((res) => res.json())
       .then((data) => {
         setConcepts(data);

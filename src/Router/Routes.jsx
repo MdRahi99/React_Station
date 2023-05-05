@@ -36,7 +36,7 @@ const router = createBrowserRouter([
         },
         {
           path: "/concept-details/:id",
-          loader: async({params})=> await fetch(`http://localhost:5000/core-concepts/${params.id}`),
+          loader: async({params})=> await fetch(`https://react-station-server.vercel.app/core-concepts/${params.id}`),
           element: <PrivateRoute><ConceptDetails></ConceptDetails></PrivateRoute>
         }
       ],
