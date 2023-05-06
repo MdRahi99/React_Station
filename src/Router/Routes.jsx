@@ -8,6 +8,7 @@ import LogIn from "../Pages/Register/LogIn/LogIn";
 import PrivateRoute from "./PrivateRoute";
 import Error from "../Pages/Shared/Error/Error";
 import ConceptDetails from "../Pages/CoreConcepts/ConceptDetails";
+import DashBoard from "../Pages/DashBoard/DashBoard";
 
 const router = createBrowserRouter([
     {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
           element: <PrivateRoute><ConceptDetails></ConceptDetails></PrivateRoute>
         }
       ],
+    },
+    {
+      path: '/dashboard',
+      element: <PrivateRoute><DashBoard></DashBoard></PrivateRoute>
     },
     {
       path: "*",

@@ -1,9 +1,11 @@
 import React from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import useTitle from "../../Hooks/useTitle";
 
 const ConceptDetails = () => {
   const conceptInfo = useLoaderData();
   const { name, description } = conceptInfo;
+  useTitle(`${name} Details`);
 
   return (
     <div className="bg-cyan-50 p-4">

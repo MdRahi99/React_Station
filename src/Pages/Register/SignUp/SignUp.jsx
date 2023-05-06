@@ -4,10 +4,12 @@ import { GoogleAuthProvider } from "firebase/auth";
 import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Loader from "../../Shared/Loader/Loader";
+import useTitle from "../../../Hooks/useTitle";
 
 const provider = new GoogleAuthProvider();
 
 const SignUp = () => {
+  useTitle('Sign Up')
   const { providerLogin, signUp, updateUser, loading } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
